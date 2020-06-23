@@ -14,8 +14,13 @@ module.exports = {
 	    	birbEXT = body.split('.')[1];
 	    	fetch(`${birbURL}img/${body}`).then(res => {
 		        const dest = fs.createWriteStream(`./tmp/birb.${birbEXT}`);
+			console.log(res);
 		        res.body.pipe(dest);
-		        setTimeout(_ => message.channel.send("", { files: [`./tmp/birb.${birbEXT}`] }), 1000);
+			if (!res.body) {
+		        	setTimeout(_ => message.channel.send("", { files: [`./tmp/birb.${birbEXT}`] }), 1000);
+			} else {
+				message.channel.send("error");
+			}
 	    	});
 		}).catch(err => console.log(err));  
 	},
