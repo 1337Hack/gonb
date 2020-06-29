@@ -2,7 +2,6 @@ const fs = require('fs');
 const Discord = require("discord.js");
 const bot = new Discord.Client();
 const { prefix, token } = require('./config.json');
-const user = new Discord.User();
 bot.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
