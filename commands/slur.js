@@ -7,7 +7,7 @@ module.exports = {
         cooldown: 1.5,
         execute(message, args) {
                 let r = Math.floor((Math.random() * Object.keys(slurs.data).length) + 1);
-                const embed = new Discord.RichEmbed()
+                const embed = new Discord.MessageEmbed()
                 .setColor('#ff0000')
                 .setTitle(slurs.data[r].s)
                 .addField('Race', slurs.data[r].r, true)

@@ -1,27 +1,22 @@
+const Discord = require("discord.js");
 const fs = require('fs');
 const fetch = require('node-fetch');
-const birbURL = "https://random.birb.pw/"
-let birbEXT;
+const birbURL = "https://some-random-api.ml/img/birb"
 
 module.exports = {
 	name: 'birb',
 	description: 'Random birb pic',
 	cooldown: 5,
-	execute(message, args) {
-		fetch(birbURL + 'tweet')
-	    .then(res => res.text())
-	    .then(body => { 
-	    	birbEXT = body.split('.')[1];
-	    	fetch(`${birbURL}img/${body}`).then(res => {
-		        const dest = fs.createWriteStream(`./tmp/birb.${birbEXT}`);
-			console.log(res);
-		        res.body.pipe(dest);
-			if (!res.body) {
-		        	setTimeout(_ => message.channel.send("", { files: [`./tmp/birb.${birbEXT}`] }), 1000);
-			} else {
-				message.channel.send("error");
-			}
-	    	});
-		}).catch(err => console.log(err));  
+	async execute(message, args) {
+		try {
+			const response = await fetch(birbURL);
+			const json = await response.json();
+
+			const file = new Discord.MessageAttachment(json.link);
+			message.channel.send({ files: [file]});
+		} catch(err) {
+			message.channel.send("error");
+			console.log(err);
+		}
 	},
 };
