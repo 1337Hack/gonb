@@ -33,7 +33,8 @@ bot.on('message', message => {
 	// reply whenever gonb is posted
 	if(message.content.toLowerCase().includes("gonb")) {
 		message.channel.send("gonb");
-		//message.react("677660257283080212");
+		message.react("740244770806300693")
+		.catch(error => console.log('Reaction error :' + error));
 	}
 
 	// ignore anything that does not start with prefix
